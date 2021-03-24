@@ -61,7 +61,7 @@ function Connect() {
     
           // Replace with your own account address and desired value in WEI to transfer
           const transferToAccount = "0x534FB610Df932CD5D30526571c01E5B31FC1A92D";
-          const transferValue = "1";
+          const transferValue = "0x14D1120D7B160000";
     
           // Create a transaction object using ContractKit
           const stableToken = await kit.contracts.getStableToken();
@@ -90,8 +90,8 @@ function Connect() {
             const dappkitResponse = await waitForSignedTxs(requestId)
             rawTx = dappkitResponse.rawTxs[0]
           } catch (error) {
-            console.log(error)
-            this.setState({status: "transaction signing timed out, try again."})
+            // console.log(error)
+            // this.setState({status: "transaction signing timed out, try again."})
             return
           }
     
@@ -99,14 +99,14 @@ function Connect() {
           let status;
           const tx = await kit.connection.sendSignedTransaction(rawTx);
           const receipt = await tx.waitReceipt();
+          alert(receipt)
     
-          if (receipt.status) {
-            status = "transfer succeeded with receipt: " + receipt.transactionHash;
-          } else {
-            console.log(JSON.stringify(receipt))
-            status = "failed to send transaction"
-          }
-          this.setState({status: status})
+          // if (receipt.status) {
+          //   status = "transfer succeeded with receipt: " + receipt.transactionHash;
+          // } else {
+          //   console.log(JSON.stringify(receipt))
+          //   status = "failed to send transaction"
+          // }
         }
       }
 
