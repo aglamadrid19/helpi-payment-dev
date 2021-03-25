@@ -8,13 +8,14 @@ import {
     // Ensure that we are importing the functions from dappkit/lib/web
 } from '@celo/dappkit/lib/web'
 
-import { newKitFromWeb3 } from "@celo/contractkit";
+import { CeloContract } from '@celo/contractkit'
+import { newKitFromWeb3 } from '@celo/contractkit'
 
 import Web3 from 'web3';
 
 // set up ContractKit, using forno as a provider
 // testnet
-export const web3 = new Web3('https://alfajores-forno.celo-testnet.org');
+export const web3 = new Web3(window.celo);
 // mainnet -- comment out the above, uncomment below for mainnet
 // export const web3 = new Web3('https://forno.celo.org');
 
@@ -22,35 +23,50 @@ export const web3 = new Web3('https://alfajores-forno.celo-testnet.org');
 export const kit = newKitFromWeb3(web3);
 
 function Connect() {
-    const [address, setAddress] = useState(null);
-
-    let walletConnector
 
     const login = async () => {
-        console.log("entering login")
-        // A string you can pass to DAppKit, that you can use to listen to the response for that request
-        const requestId = 'login'
-    
-        // A string that will be displayed to the user, indicating the DApp requesting access/signature
-        const dappName = 'helpi'
-        // Ask the Celo Alfajores Wallet for user info
-        requestAccountAddress({
-          requestId,
-          dappName: dappName,
-          callback: window.location.href,
-        })
-    
-        // Wait for the Celo Wallet response
+        // console.log("entering login")
+        // // const stabletoken = await kit.contract.getStableToken()
+        // const oneStableToken = kit.web3.utils.toWei('1', 'ether')
+        // const account = await kit.web3.eth.getAccounts()
+        
+        // // const txo = await stabletoken.transfer("0x534FB610Df932CD5D30526571c01E5B31FC1A92D", oneStableToken).send({from: account[0]})
+        // // const txsg = await kit.connection.sendSignedTransaction(txo);
+        // // const tx = await kit.sendTransactionObject(txsg, { from: account[0]})
+        // // const hash = await txo.getHash()
+        // // const receipt = await txo.waitReceipt()
+
+        // const tx = await kit.sendTransaction({
+        //   from: account[0],
+        //   to: "0x534FB610Df932CD5D30526571c01E5B31FC1A92D",
+        //   value: oneStableToken,
+        // })
+        // const hash = await tx.getHash()
+        // const receipt = await tx.waitReceipt()
+
+        const goldtoken = await kit._web3Contracts.getGoldToken()
+        const oneGold = kit.web3.utils.toWei('1', 'ether')
+        const account = await kit.web3.eth.getAccounts()
+        const gasEstimate = await kit.web3.eth.getGasPrice()
+        const txo = await goldtoken.methods.transfer("0x534FB610Df932CD5D30526571c01E5B31FC1A92D", oneGold)
+        const tx = await kit.sendTransactionObject(txo, { from: account[0], gasPrice: gasEstimate})
+        const hash = await tx.getHash()
+        const receipt = await tx.waitReceipt()
+
+        
+        // Wait for the MetaMask Wallet response
         try {
-          const dappkitResponse = await waitForAccountAuth(requestId)
+          // window.celo.enable()
+          // console.log(window.celo._state.accounts[0])
+          // awakit.connection.addAccount()
           // setAddress(dappkitResponse.address)
           // transfer()
         // Catch and handle possible timeout errors
         } catch (error) {
           console.log(error)
-          this.setState({
-            status: "Login timed out, try again.",
-          })
+          // this.setState({
+          //   status: "Login timed out, try again.",
+          // })
         }  
     }
 

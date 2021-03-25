@@ -4,12 +4,9 @@ import Valora from "./Providers/Valora"
 
 function OptionsDropDown() {
   const [isMetaMask, setIsMetaMask] = useState(false)
-  const [isValora, setIsValora] = useState(false) 
-  const [connected, setConnected] = useState(false)
+  const [isValora, setIsValora] = useState(false)
 
   const selectWallet = function() {
-    setConnected(!connected)
-    
   }
 
   const setWalletState = function(event) {
