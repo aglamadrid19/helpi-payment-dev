@@ -9,14 +9,17 @@ function OptionsDropDown() {
 
   const selectWallet = function() {
     setConnected(!connected)
+    
   }
 
   const setWalletState = function(event) {
     if (event.target.value === "MetaMask"){
       setIsMetaMask(true)
+      setIsValora(false)
     }
     if (event.target.value === "Valora") {
       setIsValora(true)
+      setIsMetaMask(false)
     }
   }
 
@@ -26,8 +29,8 @@ function OptionsDropDown() {
             <option value="MetaMask">MetaMask</option>
             <option value="Valora">Valora</option>
           </select>
-          <button onClick={selectWallet}>Select</button>
-          {connected ? <MetaMask></MetaMask> : <Valora></Valora>}
+          {isMetaMask && <MetaMask></MetaMask>}
+          {isValora && <Valora></Valora>}
       </div>
     )
 }

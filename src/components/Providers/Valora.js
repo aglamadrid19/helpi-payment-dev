@@ -22,7 +22,6 @@ export const web3 = new Web3('https://alfajores-forno.celo-testnet.org');
 export const kit = newKitFromWeb3(web3);
 
 function Connect() {
-    const [address, setAddress] = useState(null);
 
     let walletConnector
 
@@ -33,6 +32,7 @@ function Connect() {
     
         // A string that will be displayed to the user, indicating the DApp requesting access/signature
         const dappName = 'helpi'
+
         // Ask the Celo Alfajores Wallet for user info
         requestAccountAddress({
           requestId,
@@ -42,9 +42,53 @@ function Connect() {
     
         // Wait for the Celo Wallet response
         try {
-          const dappkitResponse = await waitForAccountAuth(requestId)
-        setAddress(dappkitResponse.address)
-        //   transfer()
+
+        //   const dappkitResponse = await waitForAccountAuth(requestId)
+
+        //   // Get the response from the Celo wallet
+        //     //       // Wait for signed transaction object and handle possible timeout
+        //           let rawTx;
+        //           try {
+        //             const dappkitResponse = await waitForSignedTxs(requestId)
+        //             rawTx = dappkitResponse.rawTxs[0]
+        //           } catch (error) {
+        //             // console.log(error)
+        //             // this.setState({status: "transaction signing timed out, try again."})
+        //             return
+        //           }
+
+        // //   rawTx = dappkitResponse.rawTxs[0]
+        // //   dappkitResponse
+        //   // TX Object Creation   
+        //   const txObject = stableToken.transfer(transferToAccount, transferValue).txo;
+
+          //    
+        //   const tx = await kit.connection.sendSignedTransaction(rawTx);
+
+          
+            
+        //Create a transaction object using ContractKit
+        //const stableToken = await kit.contracts.getStableToken();
+        //const txObject = stableToken.transfer(transferToAccount, transferValue).txo;
+
+
+        // Send a request to the Celo wallet to send an update transaction to the HelloWorld contract
+        //       requestTxSig(
+        //         // @ts-ignore
+        //         kit,
+        //         [
+        //           {
+        //             // @ts-ignore
+        //             tx: txObject,
+        //             from: address,
+        //             to: stableToken.address,
+        //             feeCurrency: FeeCurrency.cUSD
+        //           }
+        //         ],
+        //         { requestId, dappName, callback: window.location.href }
+        //       )
+
+          //   transfer()
         // Catch and handle possible timeout errors
         } catch (error) {
           console.log(error)
@@ -64,25 +108,9 @@ function Connect() {
     //       const transferToAccount = "0x534FB610Df932CD5D30526571c01E5B31FC1A92D";
     //       const transferValue = "0x14D1120D7B160000";
     
-    //       // Create a transaction object using ContractKit
-    //       const stableToken = await kit.contracts.getStableToken();
-    //       const txObject = stableToken.transfer(transferToAccount, transferValue).txo;
+    //       /
     
-    //       // Send a request to the Celo wallet to send an update transaction to the HelloWorld contract
-    //       requestTxSig(
-    //         // @ts-ignore
-    //         kit,
-    //         [
-    //           {
-    //             // @ts-ignore
-    //             tx: txObject,
-    //             from: address,
-    //             to: stableToken.address,
-    //             feeCurrency: FeeCurrency.cUSD
-    //           }
-    //         ],
-    //         { requestId, dappName, callback: window.location.href }
-    //       )
+    //       
     
     //       // Get the response from the Celo wallet
     //       // Wait for signed transaction object and handle possible timeout
