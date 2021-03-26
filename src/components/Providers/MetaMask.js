@@ -48,16 +48,16 @@ function Connect() {
         
         // Wait for the MetaMask Wallet response
         try {
-            await window.celo.enable()
+          await window.celo.enable()
 
-            const goldtoken = await kit._web3Contracts.getGoldToken()
-            const oneGold = kit.web3.utils.toWei('1', 'ether')
-            const account = await kit.web3.eth.getAccounts()
-            const gasEstimate = await kit.web3.eth.getGasPrice()
-            const txo = await goldtoken.methods.transfer("0x534FB610Df932CD5D30526571c01E5B31FC1A92D", oneGold)
-            const tx = await kit.sendTransactionObject(txo, { from: account[0], gasPrice: gasEstimate})
-            const hash = await tx.getHash()
-            const receipt = await tx.waitReceipt()
+        const goldtoken = await kit._web3Contracts.getGoldToken()
+        const oneGold = kit.web3.utils.toWei('1', 'ether')
+        const account = await kit.web3.eth.getAccounts()
+        const gasEstimate = await kit.web3.eth.getGasPrice()
+        const txo = await goldtoken.methods.transfer("0x534FB610Df932CD5D30526571c01E5B31FC1A92D", oneGold)
+        const tx = await kit.sendTransactionObject(txo, { from: account[0], gasPrice: gasEstimate})
+        const hash = await tx.getHash()
+        const receipt = await tx.waitReceipt()
           // window.celo.enable()
           // console.log(window.celo._state.accounts[0])
           // awakit.connection.addAccount()
